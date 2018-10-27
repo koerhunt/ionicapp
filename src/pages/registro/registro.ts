@@ -5,6 +5,7 @@ import User from '../../models/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from 'ionic-angular';
 
+import {HomePage} from '../home/home';
 
 @IonicPage()
 @Component({
@@ -26,7 +27,12 @@ export class RegistroPage {
     
     try{
       const result =  await this.aFoth.auth.createUserWithEmailAndPassword(user.email,user.password);
-      console.log(result);
+      
+      
+      if(result){
+        this.navCtrl.push(HomePage);
+      }
+
     }catch(e){
       let toast = this.toastCtrl.create({
         duration: 3000,

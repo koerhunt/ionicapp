@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from 'ionic-angular';
 
 import { RegistroPage } from '../registro/registro';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -36,6 +37,10 @@ export class LoginPage {
         position: 'top',
         message: "Acceso correcto"
       }).present();
+
+      if(result){
+        this.navCtrl.push(HomePage);
+      }
 
 
     }catch(e){
