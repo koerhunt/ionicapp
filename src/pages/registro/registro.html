@@ -4,15 +4,40 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>registro</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+    <ion-navbar>
+      <ion-title>Crea tu cuenta</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  <ion-content padding>
+    
+    <ion-item>
+        <ion-label floating>
+          Email:
+        </ion-label>
+          <ion-input type="text" [(ngModel)]="user.email" >
+  
+          </ion-input>
+    </ion-item>
+  
+    <ion-item>
+        <ion-label floating>
+          Password:
+        </ion-label>
+          <ion-input type="password" [(ngModel)]="user.password" ></ion-input>
+    </ion-item>
+  
+    <button ion-button (click)="registrarse(user)">Registrarse</button>
+    <button ion-button (click)="goToBack()" color="light">Regresar</button>
+    
+  </ion-content>
+  

@@ -12,6 +12,7 @@ import { RegistroPage } from '../pages/registro/registro';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { firebaseConfig } from '../firebase.conf';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { firebaseConfig } from '../firebase.conf';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +41,8 @@ import { firebaseConfig } from '../firebase.conf';
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
   exports: [
-    LoginPage
+    LoginPage,
+    RegistroPage
   ]
 })
 export class AppModule {}

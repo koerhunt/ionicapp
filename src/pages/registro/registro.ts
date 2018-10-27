@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the RegistroPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import User from '../../models/user';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @IonicPage()
 @Component({
@@ -15,11 +11,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegistroPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user = {} as User;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private aFoth: AngularFireAuth) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegistroPage');
   }
+
+  async registrarse(user: User){
+    
+    try{
+      const result =  await this.aFoth.auth.createUserWithEmailAndPassword(user.email,user.password);
+      console.log(result);
+    }catch(e){
+      console.log(e);
+    }
+
+
+
+  }
+
+  goToBack(){
+    
+  }
+
 
 }
