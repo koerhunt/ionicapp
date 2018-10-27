@@ -1,0 +1,8 @@
+{
+  "name": "adapplication",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "ba09ac6f"
+}
