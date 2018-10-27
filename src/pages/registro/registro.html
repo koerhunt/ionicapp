@@ -19,6 +19,15 @@
   </ion-header>
   
   <ion-content padding>
+
+      <ion-item>
+          <ion-label floating>
+            Nombre:
+          </ion-label>
+            <ion-input type="text" [(ngModel)]="profile.nombre" >
+    
+            </ion-input>
+      </ion-item>
     
     <ion-item>
         <ion-label floating>
@@ -36,7 +45,7 @@
           <ion-input type="password" [(ngModel)]="user.password" ></ion-input>
     </ion-item>
   
-    <button ion-button (click)="registrarse(user)">Registrarse</button>
+    <button ion-button (click)="registrarse(user,profile)">Registrarse</button>
     
   </ion-content>
   

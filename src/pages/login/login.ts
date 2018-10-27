@@ -39,7 +39,7 @@ export class LoginPage {
       }).present();
 
       if(result){
-        this.navCtrl.push(HomePage);
+        this.navCtrl.setRoot(HomePage);
       }
 
 

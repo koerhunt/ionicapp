@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import User from '../../models/user';
+import Profile from '../../models/profile';
+
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController } from 'ionic-angular';
 
 import {HomePage} from '../home/home';
+import {AngularFireDatabaseModule} from '@angular/fire/database'
+import {AngularFireDatabase} from '@angular/fire/database'
+import profile from '../../models/profile';
 
 @IonicPage()
 @Component({
@@ -15,22 +20,31 @@ import {HomePage} from '../home/home';
 export class RegistroPage {
 
   user = {} as User;
+  profile = {} as Profile;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private aFoth: AngularFireAuth,private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private aFoth: AngularFireAuth,private toastCtrl: ToastController,
+  private afdatabase: AngularFireDatabase) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroPage');
   }
 
-  async registrarse(user: User){
+  async registrarse(user: User, profile: Profile){
     
     try{
       const result =  await this.aFoth.auth.createUserWithEmailAndPassword(user.email,user.password);
       
-      
       if(result){
-        this.navCtrl.push(HomePage);
+
+        //guardar informacion del usuario
+        try{
+          profile.id = result.user.uid;
+          await this.afdatabase.object(`/profiles/${profile.id}`).set({info: profile});
+        }catch(e){
+          console.log(e)
+        }
+
+        this.navCtrl.setRoot(HomePage);
       }
 
     }catch(e){

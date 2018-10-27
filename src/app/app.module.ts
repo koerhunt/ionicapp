@@ -9,9 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistroPage } from '../pages/registro/registro';
 
+import { firebaseConfig } from '../firebase.conf';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { firebaseConfig } from '../firebase.conf';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
