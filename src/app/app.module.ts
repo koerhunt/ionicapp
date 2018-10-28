@@ -13,31 +13,43 @@ import { firebaseConfig } from '../firebase.conf';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SubirdocPage } from '../pages/subirdoc/subirdoc';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { File } from '@ionic-native/file';
+import { FilePath} from '@ionic-native/file-path'
+import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    RegistroPage
+    RegistroPage,
+    SubirdocPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     LoginPage,
-    RegistroPage
+    RegistroPage,
+    SubirdocPage
   ],
   providers: [
+    FileChooser,
     StatusBar,
     SplashScreen,
+    File,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
   exports: [
