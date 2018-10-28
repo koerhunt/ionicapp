@@ -7,12 +7,13 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistroPage } from '../pages/registro/registro';
 import { SubirdocPage } from '../pages/subirdoc/subirdoc';
+import { UsersPage } from '../pages/users/users';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = SubirdocPage;
+  rootPage:any = UsersPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

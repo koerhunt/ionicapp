@@ -21,9 +21,9 @@
   </ion-refresher>
 
 <ion-list>
-    <ion-item *ngFor="let item of all_pdfs" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let item of all_pdfs" (click)="itemSelected(item)">
       {{ item.name }}
-    </ion-item>
+    </button>
 </ion-list>
 
   <ion-fab bottom right >

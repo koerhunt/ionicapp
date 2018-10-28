@@ -8,6 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistroPage } from '../pages/registro/registro';
+import { DocumentDetailsPage } from '../pages/document-details/document-details';
+import { UsersPage } from '../pages/users/users';
 
 import { firebaseConfig } from '../firebase.conf';
 import { AngularFireModule } from 'angularfire2';
@@ -26,7 +28,9 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     HomePage,
     LoginPage,
     RegistroPage,
-    SubirdocPage
+    SubirdocPage,
+    DocumentDetailsPage,
+    UsersPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     HomePage,
     LoginPage,
     RegistroPage,
-    SubirdocPage
+    SubirdocPage,
+    DocumentDetailsPage,
+    UsersPage
   ],
   providers: [
     FileChooser,

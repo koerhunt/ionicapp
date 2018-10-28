@@ -6,6 +6,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { AngularFireStorage }from '@angular/fire/storage'
 import { AngularFireDatabase } from 'angularfire2/database';
 import PdfFile from '../../models/pdf_file';
+import { DocumentDetailsPage } from '../document-details/document-details';
+import profile from '../../models/profile';
 
 @IonicPage()
 @Component({
@@ -19,6 +21,8 @@ export class SubirdocPage {
   loading = null;
   all_pdfs = [];
 
+  toUser = {} as profile;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -29,6 +33,10 @@ export class SubirdocPage {
     public loadingCtrl: LoadingController,
     private storage: AngularFireStorage,
     private afdatabase: AngularFireDatabase) {
+
+      this.toUser.id = navParams.get("id");
+      this.toUser.nombre = navParams.get("nombre");
+
   }
 
   //funcion que despliega el administrador de archivos del
@@ -91,7 +99,7 @@ export class SubirdocPage {
         let npdf = {} as PdfFile;
         npdf.name = filename;
         try{
-          this.afdatabase.list("/uploaded_files").push(npdf);
+          this.afdatabase.list(`/profiles/${this.toUser.id}/documents`).push(npdf);
           this.refreshData();
         }catch(e){
           console.log(e)
@@ -105,7 +113,6 @@ export class SubirdocPage {
   }
 
   itemSelected(item){
-
   }
 
   refreshData(){
@@ -113,7 +120,8 @@ export class SubirdocPage {
     var _this = this;
     
     try{
-      let uploaded_files = this.afdatabase.database.ref("/uploaded_files");
+
+      let uploaded_files = this.afdatabase.database.ref(`/profiles/${this.toUser.id}/documents`);
     
       uploaded_files.once('value',function(snap){
         snap.forEach(function(e){
@@ -128,7 +136,6 @@ export class SubirdocPage {
   }
 
   ionViewDidLoad() {
-    
     this.refreshData();
 
   }
