@@ -41,7 +41,7 @@ export class RegistroPage {
           profile.id = result.user.uid;
           await this.afdatabase.object(`/profiles/${profile.id}`).set({info: profile});
         }catch(e){
-          console.log(e)
+          console.log(e);
         }
 
         this.navCtrl.setRoot(HomePage);

@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
-// import { storage } from 'firebase'
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { AngularFireStorage }from '@angular/fire/storage'
-
-/**
- * Generated class for the SubirdocPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AngularFireDatabase } from 'angularfire2/database';
+import PdfFile from '../../models/pdf_file';
 
 @IonicPage()
 @Component({
@@ -23,6 +17,7 @@ export class SubirdocPage {
   FileUri = null;
   ResolvedUri = null;
   loading = null;
+  all_pdfs = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -32,9 +27,12 @@ export class SubirdocPage {
     private file: File,
     private filePath: FilePath,
     public loadingCtrl: LoadingController,
-  private storage: AngularFireStorage) {
+    private storage: AngularFireStorage,
+    private afdatabase: AngularFireDatabase) {
   }
 
+  //funcion que despliega el administrador de archivos del
+  //telefono y regresa el uri
   selectFile(){
     this.fileChooser.open().then(
       uri => {
@@ -45,6 +43,8 @@ export class SubirdocPage {
     ).catch(e => console.log(e));
   }
 
+  //resuelve el uri al sistema de archivos del telefono
+  //segun la plataforma
   resolvePath(){
     this.filePath.resolveNativePath(this.FileUri).then(
       rPath => {
@@ -55,30 +55,47 @@ export class SubirdocPage {
 
   }
 
+  //lee el archivo como un data-url y lo manda al storage
   storeFile(){
 
+    //path
     let path =  this.ResolvedUri.split("/");
+    //nombre del archivo
     let filename = path.pop();
     path = path.join("/");
 
+    //despliega loader
     this.loading = this.loadingCtrl.create({content: "Leyendo archivo..."});
     this.loading.present();
 
+    //comienza a leer el contenido del archivo
     this.file.readAsDataURL(path,filename).then(strdata => {
 
       this.loading.dismiss();
       this.loading = this.loadingCtrl.create({content: "Subiendo, por favor espere..."});
       this.loading.present();
       
+      //comienza a enviar el documento al storage
       this.storage.ref("pdfs").child(filename).putString(strdata, 'data_url').then((d)=>{
-
+        
+        //guarda en la base de datos el id y direccion
+        //del archivo
+        
         this.loading.dismiss();
-
         this.toastCtrl.create({
           duration: 3000,
           position: 'middle',
           message: "El archivo se ha guardado"
         }).present();
+
+        let npdf = {} as PdfFile;
+        npdf.name = filename;
+        try{
+          this.afdatabase.list("/uploaded_files").push(npdf);
+          this.refreshData();
+        }catch(e){
+          console.log(e)
+        }
 
       },(e)=>{
 
@@ -86,18 +103,40 @@ export class SubirdocPage {
 
     })
   }
-  ionViewDidLoad() {
+
+  itemSelected(item){
+
   }
 
-}
+  refreshData(){
+    this.all_pdfs = [];
+    var _this = this;
+    
+    try{
+      let uploaded_files = this.afdatabase.database.ref("/uploaded_files");
+    
+      uploaded_files.once('value',function(snap){
+        snap.forEach(function(e){
+          let npdf = {name: e.val().name} as PdfFile;
+          _this.all_pdfs.push(npdf);
+        })
+      });
+    }catch(e){
+      console.log(e);
+    }  
 
-/*
-this.file.readAsDataURL(rPath,file).then(strdata => {
-          this.toastCtrl.create({
-            duration: 3000,
-            position: 'top',
-            message: "Archivo leido"
-          }).present();
-         
-        }).catch();
-*/
+  }
+
+  ionViewDidLoad() {
+    
+    this.refreshData();
+
+  }
+
+  doRefresh(refresher) {
+    this.refreshData();
+    refresher.complete();
+  }
+
+
+}

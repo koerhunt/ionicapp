@@ -7,14 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Subir documento</ion-title>
+    <ion-title>Listado de documentos</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <button (click)="selectFile()" ion-button>
-    Subir documento
-  </button>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>
+
+<ion-list>
+    <ion-item *ngFor="let item of all_pdfs" (click)="itemSelected(item)">
+      {{ item.name }}
+    </ion-item>
+</ion-list>
+
+  <ion-fab bottom right >
+    <button (click)="selectFile()" ion-fab color="primary">
+        <ion-icon name="cloud-upload"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
