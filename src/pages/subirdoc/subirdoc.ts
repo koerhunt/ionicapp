@@ -6,7 +6,6 @@ import { FilePath } from '@ionic-native/file-path';
 import { AngularFireStorage }from '@angular/fire/storage'
 import { AngularFireDatabase } from 'angularfire2/database';
 import PdfFile from '../../models/pdf_file';
-import { DocumentDetailsPage } from '../document-details/document-details';
 import profile from '../../models/profile';
 
 @IonicPage()
@@ -106,10 +105,16 @@ export class SubirdocPage {
         }
 
       },(e)=>{
-
+        this.toastCtrl.create({
+          duration: 3000,
+          position: 'middle',
+          message: "Error al leer el archivo"
+        }).present();
       })
 
-    })
+    }).catch(function(e){
+      this.loading.dismiss();
+    });
   }
 
   itemSelected(item){

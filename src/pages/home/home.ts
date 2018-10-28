@@ -19,11 +19,13 @@ export class HomePage {
         if(data.email){
           this.toastCtr.create({
             message: `Bienvenido ${data.email}`,
+            position: "top",
             duration: 3000
           }).present();
         }else{
           this.toastCtr.create({
             message: `No esta logeado`,
+            position: "top",
             duration: 3000
           }).present();
         }

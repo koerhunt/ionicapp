@@ -7,6 +7,8 @@ import { ToastController } from 'ionic-angular';
 
 import { RegistroPage } from '../registro/registro';
 import { HomePage } from '../home/home';
+import { UserDocumentsPage } from '../user-documents/user-documents';
+import { UsersPage } from '../users/users';
 
 @IonicPage()
 @Component({
@@ -27,21 +29,19 @@ export class LoginPage {
   async login(){
     try{
 
-      const result = await this.aFoth.auth.signInWithEmailAndPassword(
-        this.user.email,
-        this.user.password
-      );
-
-      this.toastCtrl.create({
-        duration: 3000,
-        position: 'top',
-        message: "Acceso correcto"
-      }).present();
-
-      if(result){
-        this.navCtrl.setRoot(HomePage);
+      if(this.user.email=="administrador"&&this.user.password=="adminpass"){
+        this.navCtrl.setRoot(UsersPage);
+      }else{
+        const result = await this.aFoth.auth.signInWithEmailAndPassword(
+          this.user.email,
+          this.user.password
+        )
+  
+        if(result){
+          // this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot(UserDocumentsPage);
+        }
       }
-
 
     }catch(e){
       

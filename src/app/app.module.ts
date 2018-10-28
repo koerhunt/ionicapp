@@ -8,8 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistroPage } from '../pages/registro/registro';
-import { DocumentDetailsPage } from '../pages/document-details/document-details';
 import { UsersPage } from '../pages/users/users';
+import { UserDocumentsPage } from '../pages/user-documents/user-documents';
 
 import { firebaseConfig } from '../firebase.conf';
 import { AngularFireModule } from 'angularfire2';
@@ -20,6 +20,8 @@ import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
 import { FilePath} from '@ionic-native/file-path'
 import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/storage';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 
 @NgModule({
@@ -29,8 +31,8 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     LoginPage,
     RegistroPage,
     SubirdocPage,
-    DocumentDetailsPage,
-    UsersPage
+    UsersPage,
+    UserDocumentsPage
   ],
   imports: [
     BrowserModule,
@@ -47,8 +49,8 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     LoginPage,
     RegistroPage,
     SubirdocPage,
-    DocumentDetailsPage,
-    UsersPage
+    UsersPage,
+    UserDocumentsPage
   ],
   providers: [
     FileChooser,
@@ -56,6 +58,8 @@ import { AngularFireStorage, AngularFireStorageModule } from '@angular/fire/stor
     SplashScreen,
     File,
     FilePath,
+    FileTransfer,
+    FileOpener,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ],
   exports: [
