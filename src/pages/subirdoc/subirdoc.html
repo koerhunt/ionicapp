@@ -22,12 +22,14 @@
 
 <ion-list>
     <button ion-item *ngFor="let item of all_pdfs" (click)="itemSelected(item)">
-      {{ item.name }}
+        <ion-icon name="ios-document">
+          {{ item.name }}
+        </ion-icon>
     </button>
 </ion-list>
 
   <ion-fab bottom right >
-    <button (click)="selectFile()" ion-fab color="primary">
+    <button (click)="selectFile()" ion-fab color="primary" class="fab-m15">
         <ion-icon name="cloud-upload"></ion-icon>
     </button>
   </ion-fab>

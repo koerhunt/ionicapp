@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import Profile from '../../models/profile';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { SubirdocPage } from '../subirdoc/subirdoc';
+import { LoginPage } from '../login/login';
 
 
 @IonicPage()
@@ -55,6 +56,10 @@ export class UsersPage {
       id: item.id,
       nombre: item.nombre
     });
+  }
+
+  cerrarSession(){
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }
