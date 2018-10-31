@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController,ToastController } from 'ionic-angular';
 import { AngularFireAuth } from "@angular/fire/auth"
+import { LoginPage } from '../login/login';
+import { UserDocumentsPage } from '../user-documents/user-documents';
 
 
 @Component({
@@ -11,6 +13,14 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
   private afauth:AngularFireAuth, private toastCtr:ToastController ) {
+  }
+
+  irADocumentos(){
+    this.navCtrl.push(UserDocumentsPage);
+  }
+
+  cerrarSession(){
+    this.navCtrl.setRoot(LoginPage);
   }
 
   ionViewWillLoad(){

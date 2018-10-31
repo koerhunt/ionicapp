@@ -38,8 +38,7 @@ export class LoginPage {
         )
   
         if(result){
-          // this.navCtrl.setRoot(HomePage);
-          this.navCtrl.setRoot(UserDocumentsPage);
+          this.navCtrl.setRoot(HomePage);
         }
       }
 
